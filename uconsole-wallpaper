@@ -1,0 +1,17 @@
+#!/bin/bash
+# Avanza el wallpaper del tema activo y actualiza el swaybg real.
+set -e
+
+omarchy-theme-bg-next
+background="$(readlink -f "$HOME/.local/state/omarchy/current/background")"
+
+if [[ -z "$background" || ! -f "$background" ]]; then
+  echo "No se encontró el wallpaper actual" >&2
+  exit 1
+fi
+
+# El swaybg configurado al iniciar Sway no sigue el symlink de Omarchy.
+pkill -x swaybg 2>/dev/null || true
+sleep 0.15
+nohup swaybg -o "*" -i "$background" -m fill >/dev/null 2>&1 &
+disown || true

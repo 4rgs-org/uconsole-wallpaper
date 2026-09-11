@@ -1,0 +1,12 @@
+version: 2
+project_name: uconsole-wallpaper
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_linux_arm64"
+    files: [README.md, LICENSE, install.sh]
+checksum:
+  name_template: SHA256SUMS
+release:
+  github:
+    owner: 4rgs-org
+    name: uconsole-wallpaper
